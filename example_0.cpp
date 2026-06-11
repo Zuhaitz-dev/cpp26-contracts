@@ -2,6 +2,7 @@
 #include <array>
 #include <contracts>
 #include <cstdlib>
+#include <stacktrace>
 // #include <exception>
 
 template <typename T, size_t Capacity>
@@ -65,10 +66,11 @@ void handle_contract_violation(const std::contracts::contract_violation& violati
     std::println(stderr, "Type:      {}", kind_str);
     std::println(stderr, "Location:  {}:{}", violation.location().file_name(), violation.location().line());
     std::println(stderr, "Condition: {}\n", violation.comment());
+    std::println(stderr, "Backtrace:");
+    std::println(stderr, "{}", std::stacktrace::current());
 
-    // std::terminate();        // This would be ideal, but currently, in gcc 16.1, it seems to lead to a segfault.
-    // std::abort();            // Another segfault!
-    std::_Exit(EXIT_FAILURE);   // So we shall do it this way for now. Unless you show me how else we can do it.
+    // std::terminate() and std::abort() segfault in GCC 16.1 (see bugs/)
+    std::_Exit(EXIT_FAILURE);
 }
 
 int main()

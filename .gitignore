@@ -1,0 +1,20 @@
+# Object files
+*.o
+*.obj
+
+# Executables
+a.out
+a.exe
+
+# Module cache
+gcm.cache/
+
+# IDE / editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
